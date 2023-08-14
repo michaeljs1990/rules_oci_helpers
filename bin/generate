@@ -1,0 +1,12 @@
+#! /bin/bash
+
+set -euo pipefail
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+bazel run -- //tools/debian_package_manager/cmd/generate:generate \
+  -packages ${REPO_ROOT}/debian_packages.yaml \
+  -snapshots ${REPO_ROOT}/debian_snapshots.yaml \
+  -versions-out ${REPO_ROOT}/debian_versions.bzl \
+  -archives-out ${REPO_ROOT}/debian_archives.bzl \
+  $@

@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "update_lib",
+    srcs = ["update.go"],
+    importpath = "github.com/GoogleContainerTools/distroless/debian_package_manager/cmd/update",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//tools/debian_package_manager/cmd/flags",
+        "//tools/debian_package_manager/internal/build",
+    ],
+)
+
+go_binary(
+    name = "update",
+    embed = [":update_lib"],
+    visibility = ["//visibility:public"],
+)
